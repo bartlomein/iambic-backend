@@ -11,6 +11,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: true,
+  introspection: true,
   context: ({ req }) => ({ req, pubsub })
 });
 
