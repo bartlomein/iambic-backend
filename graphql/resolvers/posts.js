@@ -35,6 +35,7 @@ module.exports = {
       //   }
 
       const newPost = new Post({
+        title,
         body,
         type,
         user: user.id,
