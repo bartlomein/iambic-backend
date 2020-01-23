@@ -8,14 +8,16 @@ module.exports = {
     async getPosts() {
       try {
         const posts = await Post.find().sort({ createdAt: -1 });
+
         return posts;
       } catch (err) {
         throw new Error(err);
       }
     },
-    async getPostsMostLiked() {
+    async getPostsSorted() {
       try {
-        const posts = await Post.find().sort({ createdAt: -1 });
+        const posts = await Post.find().sort({ likes: -1 });
+
         return posts;
       } catch (err) {
         throw new Error(err);

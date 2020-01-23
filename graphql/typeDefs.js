@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require("apollo-server");
 
 module.exports = gql`
   type Post {
@@ -39,6 +39,7 @@ module.exports = gql`
   }
   type Query {
     getPosts: [Post]
+    getPostsSorted: [Post]
     getPost(postId: ID!): Post
   }
   type Mutation {
