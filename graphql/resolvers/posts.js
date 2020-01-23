@@ -13,14 +13,6 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async getPostsByLikes() {
-      try {
-        const posts = await Post.find().sort({ likes: 1 });
-        return posts;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
     async getPost(_, { postId }) {
       try {
         const post = await Post.findById(postId);
