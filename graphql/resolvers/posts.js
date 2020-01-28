@@ -14,7 +14,16 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async getPostsSorted() {
+    async getPostsSortedByLikes() {
+      try {
+        const posts = await Post.find().sort({ likes: -1 });
+
+        return posts;
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+    async getPostsSortedByComments() {
       try {
         const posts = await Post.find().sort({ likes: -1 });
 

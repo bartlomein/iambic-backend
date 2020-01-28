@@ -39,7 +39,8 @@ module.exports = gql`
   }
   type Query {
     getPosts: [Post]
-    getPostsSorted: [Post]
+    getPostsSortedByLikes: [Post]
+    getPostsSortedByComments: [Post]
     getPost(postId: ID!): Post
   }
   type Mutation {
