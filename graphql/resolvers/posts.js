@@ -16,7 +16,7 @@ module.exports = {
     },
     async getPostsSortedByLikes() {
       try {
-        const posts = await Post.find().sort({ likes: -1 });
+        const posts = await Post.find().sort({ likeCount: -1 });
 
         return posts;
       } catch (err) {
@@ -25,7 +25,7 @@ module.exports = {
     },
     async getPostsSortedByComments() {
       try {
-        const posts = await Post.find().sort({ comments: 1 });
+        const posts = await Post.find().sort({ commentCount: -1 });
 
         return posts;
       } catch (err) {
@@ -99,6 +99,7 @@ module.exports = {
             username,
             createdAt: new Date().toISOString()
           });
+          post.likesCount = post.likesCount + 1;
         }
 
         await post.save();
