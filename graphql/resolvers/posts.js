@@ -25,7 +25,7 @@ module.exports = {
     },
     async getPostsSortedByComments() {
       try {
-        const posts = await Post.find().sort({ commentCount: -1 });
+        const posts = await Post.find().sort({ commentCount: 1 });
 
         return posts;
       } catch (err) {
@@ -93,6 +93,7 @@ module.exports = {
         if (post.likes.find(like => like.username === username)) {
           // Post already likes, unlike it
           post.likes = post.likes.filter(like => like.username !== username);
+          post.likesCount = post.likesCount - 1;
         } else {
           // Not liked, like post
           post.likes.push({
