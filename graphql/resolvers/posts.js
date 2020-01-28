@@ -16,7 +16,7 @@ module.exports = {
     },
     async getPostsSortedByLikes() {
       try {
-        const posts = await Post.find().sort({ likeCount: -1 });
+        const posts = await Post.find().sort({ likesCount: -1 });
 
         return posts;
       } catch (err) {
