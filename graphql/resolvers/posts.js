@@ -58,6 +58,7 @@ module.exports = {
         body,
         type,
         user: user.id,
+        likesCount: 0,
         username: user.username,
         createdAt: new Date().toISOString()
       });
