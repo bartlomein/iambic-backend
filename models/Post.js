@@ -22,6 +22,7 @@ const postSchema = new Schema({
     }
   ],
   likesCount: Number,
+  commentsCount: Number,
   user: {
     type: Schema.Types.ObjectId,
     ref: "users"
