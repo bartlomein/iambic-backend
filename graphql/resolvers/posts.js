@@ -5,7 +5,7 @@ const checkAuth = require("../../util/check-auth");
 
 module.exports = {
   Query: {
-    async getPosts(offset, limit) {
+    async getPosts(offset = 1, limit = 2) {
       try {
         const posts = await Post.find()
           .limit(limit)
