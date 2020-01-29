@@ -40,7 +40,7 @@ module.exports = gql`
     email: String!
   }
   type Query {
-    getPosts: [Post]
+    getPosts(offset: Int, limit: Int): [Post]
     getPostsSortedByLikes: [Post]
     getPostsSortedByComments: [Post]
     getPost(postId: ID!): Post

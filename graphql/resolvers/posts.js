@@ -5,10 +5,11 @@ const checkAuth = require("../../util/check-auth");
 
 module.exports = {
   Query: {
-    async getPosts() {
+    async getPosts(offset, limit) {
       try {
         const posts = await Post.find()
-          .limit(1)
+          .limit(limit)
+          .skip(offset)
           .sort({
             createdAt: -1
           });
