@@ -5,9 +5,9 @@ const checkAuth = require("../../util/check-auth");
 
 module.exports = {
   Query: {
-    async getPosts() {
+    async getPosts(offset = 0, limit = 1) {
       try {
-        const posts = await Post.find().sort({ createdAt: -1 });
+        const posts = await Post.find(offset, limit).sort({ createdAt: -1 });
 
         return posts;
       } catch (err) {
@@ -17,7 +17,6 @@ module.exports = {
     async getPostsSortedByLikes() {
       try {
         const posts = await Post.find().sort({ likesCount: -1 });
-
         return posts;
       } catch (err) {
         throw new Error(err);
@@ -26,7 +25,6 @@ module.exports = {
     async getPostsSortedByComments() {
       try {
         const posts = await Post.find().sort({ commentsCount: -1 });
-
         return posts;
       } catch (err) {
         throw new Error(err);
