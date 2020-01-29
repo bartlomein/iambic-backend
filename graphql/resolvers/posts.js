@@ -18,17 +18,23 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async getPostsSortedByLikes() {
+    async getPostsSortedByLikes(_, { offset, limit }) {
       try {
-        const posts = await Post.find().sort({ likesCount: -1 });
+        const posts = await Post.find()
+          .sort({ likesCount: -1 })
+          .limit(limit)
+          .skip(offset);
         return posts;
       } catch (err) {
         throw new Error(err);
       }
     },
-    async getPostsSortedByComments() {
+    async getPostsSortedByComments(_, { offset, limit }) {
       try {
-        const posts = await Post.find().sort({ commentsCount: -1 });
+        const posts = await Post.find()
+          .sort({ commentsCount: -1 })
+          .limit(limit)
+          .skip(offset);
         return posts;
       } catch (err) {
         throw new Error(err);
