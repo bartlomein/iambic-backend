@@ -6,6 +6,7 @@ const checkAuth = require("../../util/check-auth");
 module.exports = {
   Query: {
     async getPosts(_, { offset, limit }) {
+      console.log("get posts by");
       try {
         const posts = await Post.find()
           .sort({
@@ -82,7 +83,7 @@ module.exports = {
     },
     async deletePost(_, { postId }, context) {
       const user = checkAuth(context);
-
+      console.log(postId);
       try {
         const post = await Post.findById(postId);
         if (user.username === post.username) {
