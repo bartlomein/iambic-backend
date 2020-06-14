@@ -6,11 +6,23 @@ const checkAuth = require("../../util/check-auth");
 module.exports = {
   Query: {
     async getPosts(_, { offset, limit }) {
-      console.log("get posts by");
       try {
         const posts = await Post.find()
           .sort({
-            createdAt: -1
+            createdAt: -1,
+          })
+          .limit(limit)
+          .skip(offset);
+        return posts;
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+    async getRapPosts(_, { offset, limit }) {
+      try {
+        const posts = await Post.find({ type: "rap" })
+          .sort({
+            createdAt: -1,
           })
           .limit(limit)
           .skip(offset);
@@ -52,7 +64,7 @@ module.exports = {
       } catch (err) {
         throw new Error(err);
       }
-    }
+    },
   },
   Mutation: {
     async createPost(_, { title, body, type }, context) {
@@ -70,13 +82,13 @@ module.exports = {
         likesCount: 0,
         commentsCount: 0,
         username: user.username,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       });
 
       const post = await newPost.save();
 
       context.pubsub.publish("NEW_POST", {
-        newPost: post
+        newPost: post,
       });
 
       return post;
@@ -101,15 +113,15 @@ module.exports = {
 
       const post = await Post.findById(postId);
       if (post) {
-        if (post.likes.find(like => like.username === username)) {
+        if (post.likes.find((like) => like.username === username)) {
           // Post already likes, unlike it
-          post.likes = post.likes.filter(like => like.username !== username);
+          post.likes = post.likes.filter((like) => like.username !== username);
           post.likesCount = post.likesCount - 1;
         } else {
           // Not liked, like post
           post.likes.push({
             username,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
           post.likesCount = post.likesCount + 1;
         }
@@ -117,11 +129,11 @@ module.exports = {
         await post.save();
         return post;
       } else throw new UserInputError("Post not found");
-    }
+    },
   },
   Subscription: {
     newPost: {
-      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator("NEW_POST")
-    }
-  }
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator("NEW_POST"),
+    },
+  },
 };
