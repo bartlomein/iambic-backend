@@ -7,7 +7,7 @@ module.exports = {
   Query: {
     async getPosts(_, { offset, limit }) {
       try {
-        const posts = await Post.find()
+        const posts = await Post.find({ type: "poem" })
           .sort({
             createdAt: -1,
           })
@@ -33,7 +33,7 @@ module.exports = {
     },
     async getPostsSortedByLikes(_, { offset, limit }) {
       try {
-        const posts = await Post.find()
+        const posts = await Post.find({ type: "poem" })
           .sort({ likesCount: -1 })
           .limit(limit)
           .skip(offset);
@@ -44,7 +44,7 @@ module.exports = {
     },
     async getPostsSortedByComments(_, { offset, limit }) {
       try {
-        const posts = await Post.find()
+        const posts = await Post.find({ type: "poem" })
           .sort({ commentsCount: -1 })
           .limit(limit)
           .skip(offset);
